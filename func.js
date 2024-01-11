@@ -10,6 +10,8 @@ glb_total_spent = -1;
 breakEvenTable = null;
 must_bet_to_even = -1;
 have_spend_label = null;
+autobet_diff_label = null;
+net_win_lbl = null;
 
 function first_table_row() {
     if (table == null) {
@@ -207,6 +209,35 @@ function UpdateMinBets() {
 
 function update_have_spend_label() {
     // must_bet_to_even + betValue
+    if ((must_bet_to_even != -1) && (betValue>=0)) {
+        have_spend_label.textContent = (must_bet_to_even+betValue).toFixed(2) +"$";
+    }
+    else {
+        have_spend_label.textContent = "---";
+    }
+}
+
+function update_autobet_diff() {
+    //OtherBetsChoice - must_bet_to_even
+    if ((OtherBetsChoice >=0 ) && (must_bet_to_even != -1)) {
+        autobet_diff_label.textContent = (OtherBetsChoice - must_bet_to_even).toFixed(2) +"$";
+    }
+    else {
+        autobet_diff_label.textContent = "--";
+    }
+}
+
+
+
+
+function update_net_win() {
+// glb_potential_win - (must_bet_to_even+betValue)
+if ((glb_potential_win != -1) && (must_bet_to_even != -1) && (betValue>= 0)) {
+    net_win_lbl.textContent = (glb_potential_win - (must_bet_to_even+betValue)).toFixed(2) +"$";
+}
+else {
+    net_win_lbl.textContent = "---";
+}
 }
 
 
@@ -216,4 +247,6 @@ function input_changed() {
     UpdateTotalSpent();
     UpdateMinBets();
     update_have_spend_label();
+    update_autobet_diff();
+    update_net_win();
 }

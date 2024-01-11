@@ -202,12 +202,17 @@
               <script>breakEvenTable = document.getElementById('break-even-table');</script>
             </li>
             
-            <li>How much you would end spending: <label id="have_spend_label"></label></li>
+            <li>How much you would end spending: <label id="have_spend_label">---</label></li>
 <script>have_spend_label =  document.getElementById("have_spend_label")</script>
 
-            <li>"money you wanted to bet in other outcomes" MINUS "money you have at least to spend to break even":</li>
+            <li>(How much you want to invest in other results) MINUS (how much you have to invest to break even) <label id="autobet_diff">---</label></li>
+<script>autobet_diff_label =  document.getElementById("autobet_diff")</script>
+
+
             <li>"money you will win if current bet is correct" MINUS "how much you have to spend in total to break at least
-              even":</li>
+              even":<label id="net_win">---</label></li>
+<script>net_win_lbl =    document.getElementById("net_win");</script>
+
             </li>
           </ul>
         </div>
