@@ -56,41 +56,7 @@ function last_table_row() {
 
 
 
-const handleAddRow = () => {
-    const dataRows = table.querySelectorAll('tr:not(.header)'); // Select all data rows
-    const lastDataRow = dataRows[dataRows.length - 1]; // Get the last data row
 
-    if (lastDataRow) {
-        const newRow = lastDataRow.cloneNode(true); // Clone the last data row
-        // Create and apply a new CSS class for the new row
-        const newRowClass = 'new-data-row';
-        newRow.classList.add(newRowClass);
-
-        // Copy data from last row cells to new row cells
-        for (let i = 0; i < lastDataRow.cells.length; i++) {
-            const lastDataCell = lastDataRow.cells[i];
-            const newDataCell = newRow.cells[i];
-            newDataCell.textContent = lastDataCell.textContent;
-        }
-
-        // Clear the content of the new row cells
-        for (const cell of newRow.querySelectorAll('td')) {
-            //cell.textContent = 'a';
-            // Attach a keydown event listener to the new row
-            cell.addEventListener('keydown', handleKeydown);
-        }
-
-        const tbody = table.querySelector('tbody'); // Select the tbody element explicitly
-
-
-
-        for (const cell of newRow.querySelectorAll('td')) {
-            cell.classList.add('contenteditable');
-            cell.style.width = '33.3333%'; // Set the cell width
-        }
-        tbody.appendChild(newRow); // Append the new row to the tbody
-    }
-};
 
 
 const handleKeydown = () => {
@@ -105,7 +71,7 @@ const handleKeydown = () => {
 function max_other_bet_update() {
     // (potential win - bet)
     if ((glb_potential_win >= 0) && (betValue >= 0)) {
-        MaxBetLabel.textContent = glb_potential_win - betValue;
+        MaxBetLabel.textContent = (glb_potential_win - betValue).toFixed(2) +"$";
     }
     else {
         MaxBetLabel.textContent = "-";
@@ -242,11 +208,51 @@ else {
 
 
 function input_changed() {
+    console.log("INPUT CHANGED");
     potential_win_update();
     max_other_bet_update();
     UpdateTotalSpent();
     UpdateMinBets();
     update_have_spend_label();
     update_autobet_diff();
-    update_net_win();
+    //update_net_win();
 }
+
+const handleAddRow = () => {
+    const dataRows = table.querySelectorAll('tr:not(.header)'); // Select all data rows
+    const lastDataRow = dataRows[dataRows.length - 1]; // Get the last data row
+
+    if (lastDataRow) {
+        const newRow = lastDataRow.cloneNode(true); // Clone the last data row
+        // Create and apply a new CSS class for the new row
+        const newRowClass = 'new-data-row';
+        newRow.classList.add(newRowClass);
+
+        // Copy data from last row cells to new row cells
+        for (let i = 0; i < lastDataRow.cells.length; i++) {
+            const lastDataCell = lastDataRow.cells[i];
+            const newDataCell = newRow.cells[i];
+            newDataCell.textContent = lastDataCell.textContent;
+        }
+
+        // Clear the content of the new row cells
+        for (const cell of newRow.querySelectorAll('td')) {
+            //cell.textContent = 'a';
+            // Attach a keydown event listener to the new row
+            cell.addEventListener('keydown', handleKeydown);
+        }
+
+        const tbody = table.querySelector('tbody'); // Select the tbody element explicitly
+
+
+
+        for (const cell of newRow.querySelectorAll('td')) {
+            cell.classList.add('contenteditable');
+            cell.style.width = '33.3333%'; // Set the cell width
+        }
+        tbody.appendChild(newRow); // Append the new row to the tbody
+    }
+
+    input_changed();
+    
+};
