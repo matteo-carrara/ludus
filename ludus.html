@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="func.js"></script>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LUDUS</title>
+</head>
+
+
+
+<body>
+  <section>
+
+    <div>
+
+      <h1 class="center-text">LUDUS</h1>
+      <p class="center-text"><i><strong>A useful tool to improve your gambling addiction</strong></i></p>
+
+
+      <div class="container">
+
+        <div class="left-column">
+
+          <table id="editable-table">
+            <thead>
+              <tr>
+                <th>1</th>
+                <th>X</th>
+                <th>2</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td contenteditable>1.75</td>
+                <td contenteditable>2.95</td>
+                <td contenteditable>4.95</td>
+              </tr>
+              <tr>
+                <td contenteditable>1.75</td>
+                <td contenteditable>2.90</td>
+                <td contenteditable>5</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+          <button id="add-row">Add New Row</button>
+
+
+
+          <script>
+            const addRowButton = document.getElementById('add-row');
+            addRowButton.addEventListener('click', handleAddRow); 
+          </script>
+
+
+          <script type="text/javascript">
+            const table = document.getElementById('editable-table');
+            const cells = table.querySelectorAll('tr td');
+            for (const cell of cells) {
+              cell.addEventListener('keydown', handleKeydown);
+            }
+          </script>
+
+
+
+        </div>
+
+
+        <div class="right-column">
+          <h2>Betting optimizer</h2>
+
+          <ul>
+            <li>
+              <label>Bet value</label>
+              <input type="text" id="betValue">
+
+
+
+              <script type="text/javascript">
+                // OUTPUT --> betValue (float)
+
+                const betValueInput = document.getElementById('betValue');
+
+
+                function updateBetValue() {
+                  const regex = /^\d+(\.\d+)?$/;
+                  const newBetValue = parseFloat(betValueInput.value.trim());
+                  console.log(betValueInput.value)
+
+                  if (regex.test(betValueInput.value.trim())) {
+                    // Update the bet value variable
+                    betValue = newBetValue;
+                    console.log("Value updated");
+                    console.log(betValue);
+                  } else {
+                    console.error("Invalid bet value");
+                  }
+                  input_changed();
+                }
+
+                betValueInput.addEventListener('change', updateBetValue);
+
+              </script>
+
+
+            </li>
+
+
+            <li>
+
+              <label>Initial bet (better on the lower multiplier)</label>
+
+              <div class="initial-bet-radio-group">
+
+
+                <input type="radio" id="option1" name="option">
+                <label for="option1">BET 1</label>
+
+                <input type="radio" id="option2" name="option">
+                <label for="option2">BET X</label>
+
+                <input type="radio" id="option3" name="option">
+                <label for="option3">BET 2</label>
+
+                <script>
+                  // OUTPUT -> sel_idx (int)
+
+
+                  const initialBetRadioGroup = document.querySelector('.initial-bet-radio-group');
+
+                  // Select all radio buttons within the group
+                  const radioButtons = initialBetRadioGroup.querySelectorAll('input[type="radio"]');
+
+                  let sel_idx = -1;
+
+                  radioButtons.forEach(radioButton => {
+                    radioButton.addEventListener('change', () => {
+                      sel_idx = radioButton.id.slice(-1);
+                      sel_idx = sel_idx - 1;
+                      console.log(sel_idx)
+                      input_changed();
+                    });
+                  });
+
+                </script>
+
+              </div>
+
+
+
+            </li>
+            <li>If you win, the amount would be: <label id="potential_win">-</label> </li>
+            <script>potentialWinLabel = document.getElementById('potential_win');</script>
+            <li>The maximum money you can bet on other results without losing money is: <label id="max_budget">
+                <script>
+                  MaxBetLabel = document.getElementById('max_budget');
+                </script>
+              </label></li>
+            <li>
+              <label>How much do you want to spend on other bets?</label>
+              <input type="text" id="otherBetsValue">
+              <script>
+                const inputField = document.getElementById('otherBetsValue');
+                inputField.addEventListener('change', () => {
+                  OtherBetsChoice = parseFloat(inputField.value);
+                  console.log(OtherBetsChoice);
+                  input_changed();
+                });
+              </script>
+
+            <li>Total you would spend: <label id="total_spent">-</label></li>
+            <script>
+              TotalSpentLabel = document.getElementById('total_spent');
+            </script>
+
+            <li>How much you have to bet on the other outcomes to not lose money (considering most recent multipliers):
+
+              <table id="break-even-table">
+                <thead>
+                  <tr>
+                    <th>1</th>
+                    <th>X</th>
+                    <th>2</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>[set params first]</td>
+                    <td>[set params first]</td>
+                    <td>[set params first]</td>
+                  </tr>
+                </tbody>
+              </table>
+
+              <script>breakEvenTable = document.getElementById('break-even-table');</script>
+            </li>
+            
+            <li>How much you would end spending: <label id="have_spend_label"></label></li>
+<script>have_spend_label =  document.getElementById("have_spend_label")</script>
+
+            <li>"money you wanted to bet in other outcomes" MINUS "money you have at least to spend to break even":</li>
+            <li>"money you will win if current bet is correct" MINUS "how much you have to spend in total to go at least
+              even":</li>
+            </li>
+          </ul>
+        </div>
+        <div>&copy; 2024 Matteo Carrara</div>
+
+
+      </div>
+
+
+
+
+
+    </div>
+  </section>
+
+</body>
+
+</html>
