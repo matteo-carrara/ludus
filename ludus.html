@@ -46,12 +46,15 @@
 
 
           <button id="add-row">Add New Row</button>
+          <button id="refresh-page">Refresh page</button>
 
 
 
           <script>
             const addRowButton = document.getElementById('add-row');
             addRowButton.addEventListener('click', handleAddRow); 
+
+            document.getElementById('refresh-page').addEventListener('click', input_changed);
           </script>
 
 

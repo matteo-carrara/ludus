@@ -70,6 +70,10 @@ const handleKeydown = () => {
 
 function max_other_bet_update() {
     // (potential win - bet)
+    if(MaxBetLabel == null) {
+        console.error("Cannot find max bet label");
+        return;
+    }
     if ((glb_potential_win >= 0) && (betValue >= 0)) {
         MaxBetLabel.textContent = (glb_potential_win - betValue).toFixed(2) +"$";
     }
@@ -105,6 +109,10 @@ function potential_win_update() {
 };
 
 function UpdateTotalSpent() {
+    if(TotalSpentLabel == null) {
+        console.error("Cannot find total spent label");
+        return;
+    }
     if ((betValue >= 0) && (OtherBetsChoice >= 0)) {
         TotalSpentLabel.textContent = betValue + OtherBetsChoice;
         glb_total_spent = betValue + OtherBetsChoice;
@@ -142,6 +150,10 @@ function min_other_bets() {
 }
 
 function UpdateMinBets() {
+    if(breakEvenTable == null) {
+        console.error("Cannot find breakEvenTable");
+        return;
+    }
     const firstRow = breakEvenTable.rows[1];
 
     for (const cell of firstRow.cells) {
@@ -175,6 +187,11 @@ function UpdateMinBets() {
 
 function update_have_spend_label() {
     // must_bet_to_even + betValue
+    if(have_spend_label == null) {
+        console.error("Cannot find have_spend_label");
+        return;
+    }
+    
     if ((must_bet_to_even != -1) && (betValue>=0)) {
         have_spend_label.textContent = (must_bet_to_even+betValue).toFixed(2) +"$";
     }
@@ -185,6 +202,11 @@ function update_have_spend_label() {
 
 function update_autobet_diff() {
     //OtherBetsChoice - must_bet_to_even
+    if(autobet_diff_label == null) {
+        console.error("Cannot find autobet_diff_label");
+        return;
+    }
+
     if ((OtherBetsChoice >=0 ) && (must_bet_to_even != -1)) {
         autobet_diff_label.textContent = (OtherBetsChoice - must_bet_to_even).toFixed(2) +"$";
     }
